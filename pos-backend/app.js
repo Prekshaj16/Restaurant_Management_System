@@ -13,7 +13,7 @@ connectDB();
 // Middlewares
 app.use(cors({
     credentials: true,
-    origin: ['https://restaurantfrontend-ten.vercel.app/']
+    origin: ['https://restaurantfrontend-ten.vercel.app']
 }))
 app.use(express.json()); // parse incoming request in json format
 app.use(cookieParser())
