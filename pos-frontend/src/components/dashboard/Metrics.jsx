@@ -10,12 +10,11 @@ const Metrics = () => {
             Overall Performance
           </h2>
           <p className="text-sm text-[#ababab]">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Distinctio, obcaecati?
+           
           </p>
         </div>
         <button className="flex items-center gap-1 px-4 py-2 rounded-md text-[#f5f5f5] bg-[#1a1a1a]">
-          Last 1 Month
+          Last 2 Month
           <svg
             className="w-3 h-3"
             viewBox="0 0 24 24"
@@ -74,8 +73,7 @@ const Metrics = () => {
             Item Details
           </h2>
           <p className="text-sm text-[#ababab]">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Distinctio, obcaecati?
+           
           </p>
         </div>
 

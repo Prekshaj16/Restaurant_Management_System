@@ -33,6 +33,7 @@ const Dashboard = () => {
           {buttons.map(({ label, icon, action }) => {
             return (
               <button
+                key={action}  // ✅ Add this key
                 onClick={() => handleOpenModal(action)}
                 className="bg-[#1a1a1a] hover:bg-[#262626] px-8 py-3 rounded-lg text-[#f5f5f5] font-semibold text-md flex items-center gap-2"
               >
@@ -40,30 +41,32 @@ const Dashboard = () => {
               </button>
             );
           })}
+
         </div>
 
         <div className="flex items-center gap-3">
           {tabs.map((tab) => {
             return (
               <button
+                key={tab}  // ✅ Add this key
                 className={`
-                px-8 py-3 rounded-lg text-[#f5f5f5] font-semibold text-md flex items-center gap-2 ${
-                  activeTab === tab
+        px-8 py-3 rounded-lg text-[#f5f5f5] font-semibold text-md flex items-center gap-2 ${activeTab === tab
                     ? "bg-[#262626]"
                     : "bg-[#1a1a1a] hover:bg-[#262626]"
-                }`}
+                  }`}
                 onClick={() => setActiveTab(tab)}
               >
                 {tab}
               </button>
             );
           })}
+
         </div>
       </div>
 
       {activeTab === "Metrics" && <Metrics />}
       {activeTab === "Orders" && <RecentOrders />}
-      {activeTab === "Payments" && 
+      {activeTab === "Payments" &&
         <div className="text-white p-6 container mx-auto">
           Payment Component Coming Soon
         </div>
