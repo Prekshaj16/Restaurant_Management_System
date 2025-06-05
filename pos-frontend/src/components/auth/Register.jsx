@@ -50,103 +50,114 @@ const Register = ({setIsRegister}) => {
   });
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label className="block text-[#ababab] mb-2 text-sm font-medium">
-            Employee Name
-          </label>
-          <div className="flex item-center rounded-lg p-5 px-4 bg-[#1f1f1f]">
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter employee name"
-              className="bg-transparent flex-1 text-white focus:outline-none"
-              required
-            />
-          </div>
+    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 w-full">
+      <div>
+        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+          Full Name
+        </label>
+        <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Enter your full name"
+            className="bg-transparent flex-1 text-white placeholder-gray-500 focus:outline-none text-sm sm:text-base w-full"
+            required
+          />
         </div>
-        <div>
-          <label className="block text-[#ababab] mb-2 mt-3 text-sm font-medium">
-            Employee Email
-          </label>
-          <div className="flex item-center rounded-lg p-5 px-4 bg-[#1f1f1f]">
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter employee email"
-              className="bg-transparent flex-1 text-white focus:outline-none"
-              required
-            />
-          </div>
-        </div>
-        <div>
-          <label className="block text-[#ababab] mb-2 mt-3 text-sm font-medium">
-            Employee Phone
-          </label>
-          <div className="flex item-center rounded-lg p-5 px-4 bg-[#1f1f1f]">
-            <input
-              type="number"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter employee phone"
-              className="bg-transparent flex-1 text-white focus:outline-none"
-              required
-            />
-          </div>
-        </div>
-        <div>
-          <label className="block text-[#ababab] mb-2 mt-3 text-sm font-medium">
-            Password
-          </label>
-          <div className="flex item-center rounded-lg p-5 px-4 bg-[#1f1f1f]">
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter password"
-              className="bg-transparent flex-1 text-white focus:outline-none"
-              required
-            />
-          </div>
-        </div>
-        <div>
-          <label className="block text-[#ababab] mb-2 mt-3 text-sm font-medium">
-            Choose your role
-          </label>
+      </div>
 
-          <div className="flex item-center gap-3 mt-4">
-            {["Waiter", "Cashier", "Admin"].map((role) => {
-              return (
-                <button
-                  key={role}
-                  type="button"
-                  onClick={() => handleRoleSelection(role)}
-                  className={`bg-[#1f1f1f] px-4 py-3 w-full rounded-lg text-[#ababab] ${
-                    formData.role === role ? "bg-indigo-700" : ""
-                  }`}
-                >
-                  {role}
-                </button>
-              );
-            })}
-          </div>
+      <div>
+        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+          Email Address
+        </label>
+        <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            className="bg-transparent flex-1 text-white placeholder-gray-500 focus:outline-none text-sm sm:text-base w-full"
+            required
+          />
         </div>
+      </div>
 
-        <button
-          type="submit"
-          className="w-full rounded-lg mt-6 py-3 text-lg bg-yellow-400 text-gray-900 font-bold"
-        >
-          Sign up
-        </button>
-      </form>
-    </div>
+      <div>
+        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+          Phone Number
+        </label>
+        <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Enter your phone number"
+            className="bg-transparent flex-1 text-white placeholder-gray-500 focus:outline-none text-sm sm:text-base w-full"
+            required
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+          Password
+        </label>
+        <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Create a password"
+            className="bg-transparent flex-1 text-white placeholder-gray-500 focus:outline-none text-sm sm:text-base w-full"
+            required
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+          Role
+        </label>
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={() => handleRoleSelection("Admin")}
+            className={`p-2.5 sm:p-3 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200
+              ${
+                formData.role === "Admin"
+                  ? "bg-yellow-400 text-gray-900 shadow-lg scale-[1.02]"
+                  : "bg-[#1f1f1f] text-white hover:bg-[#2a2a2a]"
+              }`}
+          >
+            Admin
+          </button>
+          <button
+            type="button"
+            onClick={() => handleRoleSelection("Employee")}
+            className={`p-2.5 sm:p-3 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200
+              ${
+                formData.role === "Employee"
+                  ? "bg-yellow-400 text-gray-900 shadow-lg scale-[1.02]"
+                  : "bg-[#1f1f1f] text-white hover:bg-[#2a2a2a]"
+              }`}
+          >
+            Employee
+          </button>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        className="w-full bg-[#F6B100] text-[#f5f5f5] rounded-lg py-2.5 sm:py-3 mt-6 hover:bg-yellow-600 active:bg-yellow-700 transition-colors duration-200 text-sm sm:text-base font-medium"
+      >
+        Sign Up
+      </button>
+    </form>
   );
 };
 
