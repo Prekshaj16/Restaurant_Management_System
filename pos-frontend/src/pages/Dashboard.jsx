@@ -14,7 +14,6 @@ const buttons = [
 const tabs = ["Metrics", "Orders", "Payments"];
 
 const Dashboard = () => {
-
   useEffect(() => {
     document.title = "POS | Admin Dashboard"
   }, [])
@@ -27,30 +26,34 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-[#1f1f1f] h-[calc(100vh-5rem)]">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-6 md:py-14 px-4 md:px-6 gap-4 md:gap-0">
-        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center md:justify-start">
+    <div className="bg-[#1f1f1f] min-h-[calc(100vh-5rem)] pb-16 sm:pb-0">
+      <div className="container mx-auto flex flex-col space-y-4 py-4 sm:py-6 md:py-8 px-4">
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full justify-start">
           {buttons.map(({ label, icon, action }) => {
             return (
               <button
                 key={action}
                 onClick={() => handleOpenModal(action)}
-                className="bg-[#1a1a1a] hover:bg-[#262626] px-4 md:px-8 py-3 rounded-lg text-[#f5f5f5] font-semibold text-sm md:text-md flex items-center gap-2 min-w-[120px] md:min-w-0 justify-center"
+                className="flex-1 sm:flex-none bg-[#1a1a1a] hover:bg-[#262626] px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 rounded-lg text-[#f5f5f5] font-medium text-xs sm:text-sm flex items-center gap-2 justify-center transition-colors"
               >
-                <span className="hidden sm:inline">{label}</span> {icon}
+                {icon}
+                <span className="hidden sm:inline">{label}</span>
               </button>
             );
           })}
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
+        {/* Tab Navigation */}
+        <div className="flex items-center gap-2 sm:gap-3 w-full overflow-x-auto pb-2 scrollbar-hide">
           {tabs.map((tab) => {
             return (
               <button
                 key={tab}
                 className={`
-                px-4 md:px-8 py-3 rounded-lg text-[#f5f5f5] font-semibold text-sm md:text-md flex items-center gap-2 min-w-[100px] justify-center
-                ${activeTab === tab ? "bg-[#262626]" : "bg-[#1a1a1a] hover:bg-[#262626]"}`}
+                  flex-1 sm:flex-none px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 rounded-lg text-[#f5f5f5] font-medium text-xs sm:text-sm whitespace-nowrap transition-colors
+                  ${activeTab === tab ? "bg-[#262626]" : "bg-[#1a1a1a] hover:bg-[#262626]"}
+                `}
                 onClick={() => setActiveTab(tab)}
               >
                 {tab}
@@ -60,14 +63,15 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="overflow-x-hidden overflow-y-auto h-[calc(100vh-12rem)]">
+      {/* Content Area */}
+      <div className="overflow-x-hidden overflow-y-auto">
         {activeTab === "Metrics" && <Metrics />}
         {activeTab === "Orders" && <RecentOrders />}
-        {activeTab === "Payments" &&
-          <div className="text-white p-6 container mx-auto">
+        {activeTab === "Payments" && (
+          <div className="text-white p-4 sm:p-6 container mx-auto">
             Payment Component Coming Soon
           </div>
-        }
+        )}
       </div>
 
       {isTableModalOpen && <Modal setIsTableModalOpen={setIsTableModalOpen} />}
