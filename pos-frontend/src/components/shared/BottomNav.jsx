@@ -43,36 +43,40 @@ const BottomNav = () => {
         onClick={() => navigate("/")}
         className={`flex items-center justify-center font-bold ${
           isActive("/") ? "text-[#f5f5f5] bg-[#343434]" : "text-[#ababab]"
-        } w-[300px] rounded-[20px]`}
+        } w-full sm:w-[300px] rounded-[20px]`}
       >
-        <FaHome className="inline mr-2" size={20} /> <p>Home</p>
+        <FaHome className="inline mr-0 sm:mr-2" size={20} /> 
+        <p className="hidden sm:inline">Home</p>
       </button>
       <button
         onClick={() => navigate("/orders")}
         className={`flex items-center justify-center font-bold ${
           isActive("/orders") ? "text-[#f5f5f5] bg-[#343434]" : "text-[#ababab]"
-        } w-[300px] rounded-[20px]`}
+        } w-full sm:w-[300px] rounded-[20px]`}
       >
-        <MdOutlineReorder className="inline mr-2" size={20} /> <p>Orders</p>
+        <MdOutlineReorder className="inline mr-0 sm:mr-2" size={20} /> 
+        <p className="hidden sm:inline">Orders</p>
       </button>
       <button
         onClick={() => navigate("/tables")}
         className={`flex items-center justify-center font-bold ${
           isActive("/tables") ? "text-[#f5f5f5] bg-[#343434]" : "text-[#ababab]"
-        } w-[300px] rounded-[20px]`}
+        } w-full sm:w-[300px] rounded-[20px]`}
       >
-        <MdTableBar className="inline mr-2" size={20} /> <p>Tables</p>
+        <MdTableBar className="inline mr-0 sm:mr-2" size={20} /> 
+        <p className="hidden sm:inline">Tables</p>
       </button>
-      <button className="flex items-center justify-center font-bold text-[#ababab] w-[300px]">
-        <CiCircleMore className="inline mr-2" size={20} /> <p>More</p>
+      <button className="flex items-center justify-center font-bold text-[#ababab] w-full sm:w-[300px]">
+        <CiCircleMore className="inline mr-0 sm:mr-2" size={20} /> 
+        <p className="hidden sm:inline">More</p>
       </button>
 
       <button
         disabled={isActive("/tables") || isActive("/menu")}
         onClick={openModal}
-        className="absolute bottom-6 bg-[#F6B100] text-[#f5f5f5] rounded-full p-4 items-center"
+        className="absolute bottom-6 bg-[#F6B100] text-[#f5f5f5] rounded-full p-3 sm:p-4 items-center"
       >
-        <BiSolidDish size={40} />
+        <BiSolidDish size={30} className="sm:w-10 sm:h-10" />
       </button>
 
       <Modal isOpen={isModalOpen} onClose={closeModal} title="Create Order">

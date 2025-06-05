@@ -3,8 +3,8 @@ import { itemsData, metricsData } from "../../constants";
 
 const Metrics = () => {
   return (
-    <div className="container mx-auto py-2 px-6 md:px-4">
-      <div className="flex justify-between items-center">
+    <div className="container mx-auto py-2 px-4 md:px-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
         <div>
           <h2 className="font-semibold text-[#f5f5f5] text-xl">
             Overall Performance
@@ -13,7 +13,7 @@ const Metrics = () => {
            
           </p>
         </div>
-        <button className="flex items-center gap-1 px-4 py-2 rounded-md text-[#f5f5f5] bg-[#1a1a1a]">
+        <button className="flex items-center gap-1 px-4 py-2 rounded-md text-[#f5f5f5] bg-[#1a1a1a] w-full sm:w-auto justify-center sm:justify-start">
           Last 2 Month
           <svg
             className="w-3 h-3"
@@ -26,7 +26,7 @@ const Metrics = () => {
         </button>
       </div>
 
-      <div className="mt-6 grid grid-cols-4 gap-4">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {metricsData.map((metric, index) => {
           return (
             <div
@@ -59,7 +59,7 @@ const Metrics = () => {
                   </p>
                 </div>
               </div>
-              <p className="mt-1 font-semibold text-2xl text-[#f5f5f5]">
+              <p className="mt-1 font-semibold text-xl sm:text-2xl text-[#f5f5f5]">
                 {metric.value}
               </p>
             </div>
@@ -67,7 +67,7 @@ const Metrics = () => {
         })}
       </div>
 
-      <div className="flex flex-col justify-between mt-12">
+      <div className="flex flex-col justify-between mt-8 md:mt-12">
         <div>
           <h2 className="font-semibold text-[#f5f5f5] text-xl">
             Item Details
@@ -77,8 +77,7 @@ const Metrics = () => {
           </p>
         </div>
 
-        <div className="mt-6 grid grid-cols-4 gap-4">
-
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {
                 itemsData.map((item, index) => {
                     return (
@@ -92,12 +91,11 @@ const Metrics = () => {
                             <p className="font-medium text-xs text-[#f5f5f5]">{item.percentage}</p>
                           </div>
                         </div>
-                        <p className="mt-1 font-semibold text-2xl text-[#f5f5f5]">{item.value}</p>
+                        <p className="mt-1 font-semibold text-xl sm:text-2xl text-[#f5f5f5]">{item.value}</p>
                       </div>
                     )
                 })
             }
-
         </div>
       </div>
     </div>

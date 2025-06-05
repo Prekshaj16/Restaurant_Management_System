@@ -28,49 +28,47 @@ const Dashboard = () => {
 
   return (
     <div className="bg-[#1f1f1f] h-[calc(100vh-5rem)]">
-      <div className="container mx-auto flex items-center justify-between py-14 px-6 md:px-4">
-        <div className="flex items-center gap-3">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-6 md:py-14 px-4 md:px-6 gap-4 md:gap-0">
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center md:justify-start">
           {buttons.map(({ label, icon, action }) => {
             return (
               <button
-                key={action}  // ✅ Add this key
+                key={action}
                 onClick={() => handleOpenModal(action)}
-                className="bg-[#1a1a1a] hover:bg-[#262626] px-8 py-3 rounded-lg text-[#f5f5f5] font-semibold text-md flex items-center gap-2"
+                className="bg-[#1a1a1a] hover:bg-[#262626] px-4 md:px-8 py-3 rounded-lg text-[#f5f5f5] font-semibold text-sm md:text-md flex items-center gap-2 min-w-[120px] md:min-w-0 justify-center"
               >
-                {label} {icon}
+                <span className="hidden sm:inline">{label}</span> {icon}
               </button>
             );
           })}
-
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
           {tabs.map((tab) => {
             return (
               <button
-                key={tab}  // ✅ Add this key
+                key={tab}
                 className={`
-        px-8 py-3 rounded-lg text-[#f5f5f5] font-semibold text-md flex items-center gap-2 ${activeTab === tab
-                    ? "bg-[#262626]"
-                    : "bg-[#1a1a1a] hover:bg-[#262626]"
-                  }`}
+                px-4 md:px-8 py-3 rounded-lg text-[#f5f5f5] font-semibold text-sm md:text-md flex items-center gap-2 min-w-[100px] justify-center
+                ${activeTab === tab ? "bg-[#262626]" : "bg-[#1a1a1a] hover:bg-[#262626]"}`}
                 onClick={() => setActiveTab(tab)}
               >
                 {tab}
               </button>
             );
           })}
-
         </div>
       </div>
 
-      {activeTab === "Metrics" && <Metrics />}
-      {activeTab === "Orders" && <RecentOrders />}
-      {activeTab === "Payments" &&
-        <div className="text-white p-6 container mx-auto">
-          Payment Component Coming Soon
-        </div>
-      }
+      <div className="overflow-x-hidden overflow-y-auto h-[calc(100vh-12rem)]">
+        {activeTab === "Metrics" && <Metrics />}
+        {activeTab === "Orders" && <RecentOrders />}
+        {activeTab === "Payments" &&
+          <div className="text-white p-6 container mx-auto">
+            Payment Component Coming Soon
+          </div>
+        }
+      </div>
 
       {isTableModalOpen && <Modal setIsTableModalOpen={setIsTableModalOpen} />}
     </div>
