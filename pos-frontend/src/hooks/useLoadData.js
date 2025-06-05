@@ -13,13 +13,11 @@ const useLoadData = () => {
     const fetchUser = async () => {
       try {
         const { data } = await getUserData();
-        console.log(data);
         const { _id, name, email, phone, role } = data.data;
         dispatch(setUser({ _id, name, email, phone, role }));
       } catch (error) {
         dispatch(removeUser());
         navigate("/auth");
-        console.log(error);
       } finally {
         setIsLoading(false);
       }

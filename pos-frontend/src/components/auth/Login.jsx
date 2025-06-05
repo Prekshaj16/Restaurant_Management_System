@@ -27,24 +27,25 @@ const Login = () => {
       mutationFn: (reqData) => login(reqData),
       onSuccess: (res) => {
           const { data } = res;
-          console.log(data);
-          const { _id, name, email, phone, role } = data.data;
-          dispatch(setUser({ _id, name, email, phone, role }));
-          navigate("/");
+          if (data.success) {
+              dispatch(setUser(data.data));
+              enqueueSnackbar(data.message, { variant: "success" });
+              navigate("/");
+          }
       },
       onError: (error) => {
-        const { response } = error;
-        enqueueSnackbar(response.data.message, { variant: "error" });
+        const message = error.response?.data?.message || "Login failed";
+        enqueueSnackbar(message, { variant: "error" });
       }
     })
 
     return (
-      <form onSubmit={handleSubmit} className="space-y-5 w-full">
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 w-full">
         <div>
-          <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+          <label className="block text-[#ababab] mb-1.5 text-xs sm:text-sm font-medium">
             Email Address
           </label>
-          <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+          <div className="flex items-center rounded-lg p-2 sm:p-2.5 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
             <input
               value={formData.email}
               onChange={handleChange}
@@ -57,10 +58,10 @@ const Login = () => {
           </div>
         </div>
         <div>
-          <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+          <label className="block text-[#ababab] mb-1.5 text-xs sm:text-sm font-medium">
             Password
           </label>
-          <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+          <div className="flex items-center rounded-lg p-2 sm:p-2.5 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
             <input
               value={formData.password}
               onChange={handleChange}
@@ -74,7 +75,7 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-[#F6B100] text-[#f5f5f5] rounded-lg py-2.5 sm:py-3 mt-6 hover:bg-yellow-600 active:bg-yellow-700 transition-colors duration-200 text-sm sm:text-base font-medium"
+          className="w-full bg-[#F6B100] text-[#f5f5f5] rounded-lg py-2 sm:py-2.5 mt-4 sm:mt-6 hover:bg-yellow-600 active:bg-yellow-700 transition-colors duration-200 text-sm sm:text-base font-medium"
         >
           Sign In
         </button>

@@ -10,3 +10,12 @@ export const axiosWrapper = axios.create({
   withCredentials: true,
   headers: { ...defaultHeader },
 });
+
+// Add response interceptor for better error handling
+axiosWrapper.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('API Error:', error);
+    return Promise.reject(error);
+  }
+);

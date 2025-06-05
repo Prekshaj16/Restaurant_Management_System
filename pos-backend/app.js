@@ -6,18 +6,22 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
 
-
 const PORT = config.port;
 connectDB();
 
 // Middlewares
 app.use(cors({
     credentials: true,
-    origin: ['https://restaurantfrontend-ten.vercel.app']
-}))
-app.use(express.json()); // parse incoming request in json format
-app.use(cookieParser())
+    origin: ['http://localhost:5173', 'https://restaurantfrontend-ten.vercel.app'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}));
 
+app.use(express.json());
+app.use(cookieParser());
+
+// Enable pre-flight requests for all routes
+app.options('*', cors());
 
 // Root Endpoint
 app.get("/", (req,res) => {
@@ -32,7 +36,6 @@ app.use("/api/payment", require("./routes/paymentRoute"));
 
 // Global Error Handler
 app.use(globalErrorHandler);
-
 
 // Server
 app.listen(PORT, () => {

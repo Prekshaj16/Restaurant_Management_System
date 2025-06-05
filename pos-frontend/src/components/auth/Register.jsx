@@ -50,12 +50,12 @@ const Register = ({setIsRegister}) => {
   });
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 w-full">
+    <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 w-full">
       <div>
-        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+        <label className="block text-[#ababab] mb-1.5 text-xs sm:text-sm font-medium">
           Full Name
         </label>
-        <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+        <div className="flex items-center rounded-lg p-2 sm:p-2.5 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
           <input
             type="text"
             name="name"
@@ -69,10 +69,10 @@ const Register = ({setIsRegister}) => {
       </div>
 
       <div>
-        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+        <label className="block text-[#ababab] mb-1.5 text-xs sm:text-sm font-medium">
           Email Address
         </label>
-        <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+        <div className="flex items-center rounded-lg p-2 sm:p-2.5 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
           <input
             type="email"
             name="email"
@@ -86,10 +86,10 @@ const Register = ({setIsRegister}) => {
       </div>
 
       <div>
-        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+        <label className="block text-[#ababab] mb-1.5 text-xs sm:text-sm font-medium">
           Phone Number
         </label>
-        <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+        <div className="flex items-center rounded-lg p-2 sm:p-2.5 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
           <input
             type="tel"
             name="phone"
@@ -103,10 +103,10 @@ const Register = ({setIsRegister}) => {
       </div>
 
       <div>
-        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+        <label className="block text-[#ababab] mb-1.5 text-xs sm:text-sm font-medium">
           Password
         </label>
-        <div className="flex items-center rounded-lg p-2.5 sm:p-3 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
+        <div className="flex items-center rounded-lg p-2 sm:p-2.5 px-3 sm:px-4 bg-[#1f1f1f] hover:bg-[#2a2a2a] focus-within:bg-[#2a2a2a] transition-colors duration-200">
           <input
             type="password"
             name="password"
@@ -120,14 +120,14 @@ const Register = ({setIsRegister}) => {
       </div>
 
       <div>
-        <label className="block text-[#ababab] mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium">
+        <label className="block text-[#ababab] mb-1.5 text-xs sm:text-sm font-medium">
           Role
         </label>
-        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+        <div className="grid grid-cols-2 gap-2">
           <button
             type="button"
             onClick={() => handleRoleSelection("Admin")}
-            className={`p-2.5 sm:p-3 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200
+            className={`p-2 sm:p-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200
               ${
                 formData.role === "Admin"
                   ? "bg-yellow-400 text-gray-900 shadow-lg scale-[1.02]"
@@ -139,7 +139,7 @@ const Register = ({setIsRegister}) => {
           <button
             type="button"
             onClick={() => handleRoleSelection("Employee")}
-            className={`p-2.5 sm:p-3 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200
+            className={`p-2 sm:p-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200
               ${
                 formData.role === "Employee"
                   ? "bg-yellow-400 text-gray-900 shadow-lg scale-[1.02]"
@@ -153,7 +153,7 @@ const Register = ({setIsRegister}) => {
 
       <button
         type="submit"
-        className="w-full bg-[#F6B100] text-[#f5f5f5] rounded-lg py-2.5 sm:py-3 mt-6 hover:bg-yellow-600 active:bg-yellow-700 transition-colors duration-200 text-sm sm:text-base font-medium"
+        className="w-full bg-[#F6B100] text-[#f5f5f5] rounded-lg py-2 sm:py-2.5 mt-4 sm:mt-6 hover:bg-yellow-600 active:bg-yellow-700 transition-colors duration-200 text-sm sm:text-base font-medium"
       >
         Sign Up
       </button>

@@ -23,6 +23,7 @@ function Layout() {
     <>
       {!hideHeaderRoutes.includes(location.pathname) && <Header />}
       <Routes>
+        <Route path="/auth" element={<Auth />} />
         <Route
           path="/"
           element={
@@ -31,7 +32,6 @@ function Layout() {
             </ProtectedRoutes>
           }
         />
-        <Route path="/auth" element={isAuth ? <Navigate to="/" /> : <Auth />} />
         <Route
           path="/orders"
           element={
@@ -64,7 +64,7 @@ function Layout() {
             </ProtectedRoutes>
           }
         />
-        <Route path="*" element={<div>Not Found</div>} />
+        <Route path="*" element={<Navigate to="/auth" />} />
       </Routes>
     </>
   );
@@ -75,7 +75,6 @@ function ProtectedRoutes({ children }) {
   if (!isAuth) {
     return <Navigate to="/auth" />;
   }
-
   return children;
 }
 

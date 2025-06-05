@@ -6,7 +6,6 @@ const config = require("../config/config");
 
 const register = async (req, res, next) => {
     try {
-
         const { name, phone, email, password, role } = req.body;
 
         if(!name || !phone || !email || !password || !role){
@@ -20,24 +19,18 @@ const register = async (req, res, next) => {
             return next(error);
         }
 
-
         const user = { name, phone, email, password, role };
         const newUser = User(user);
         await newUser.save();
 
         res.status(201).json({success: true, message: "New user created!", data: newUser});
-
-
     } catch (error) {
         next(error);
     }
 }
 
-
 const login = async (req, res, next) => {
-
     try {
-        
         const { email, password } = req.body;
 
         if(!email || !password) {
@@ -62,29 +55,26 @@ const login = async (req, res, next) => {
         });
 
         res.cookie('accessToken', accessToken, {
-            maxAge: 1000 * 60 * 60 *24 * 30,
+            maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true,
             sameSite: 'none',
             secure: true
         })
 
-        res.status(200).json({success: true, message: "User login successfully!", 
+        res.status(200).json({
+            success: true, 
+            message: "User login successfully!", 
             data: isUserPresent
         });
-
-
     } catch (error) {
         next(error);
     }
-
 }
 
 const getUserData = async (req, res, next) => {
     try {
-        
         const user = await User.findById(req.user._id);
         res.status(200).json({success: true, data: user});
-
     } catch (error) {
         next(error);
     }
@@ -92,20 +82,15 @@ const getUserData = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
     try {
-        
-        res.clearCookie('accessToken',{
+        res.clearCookie('accessToken', {
             httpOnly: true,
             sameSite: 'none',
             secure: true
         });
         res.status(200).json({success: true, message: "User logout successfully!"});
-
     } catch (error) {
         next(error);
     }
 }
-
-
-
 
 module.exports = { register, login, getUserData, logout }
