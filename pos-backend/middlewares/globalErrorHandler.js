@@ -1,13 +1,18 @@
 const config = require("../config/config");
 
 const globalErrorHandler = (err, req, res, next) => {
-    const statusCode = err.statusCode || 500;
+    console.error('Error:', err);
 
-    return res.status(statusCode).json({
-        status: statusCode,
-        message: err.message,
-        errorStack: config.nodeEnv === "development" ? err.stack : ""
-    })
-}
+    // Default error status and message
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+
+    // Send error response
+    res.status(status).json({
+        success: false,
+        message: message,
+        error: process.env.NODE_ENV === 'development' ? err : undefined
+    });
+};
 
 module.exports = globalErrorHandler;

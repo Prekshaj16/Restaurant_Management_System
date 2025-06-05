@@ -9,14 +9,39 @@ const app = express();
 const PORT = config.port;
 connectDB();
 
-// Middlewares
+// CORS Configuration
 app.use(cors({
-    origin: true, // Allow all origins
+    // Allow both localhost and IP address access
+    origin: function(origin, callback) {
+        // Allow requests with no origin (like mobile apps, curl, postman)
+        if(!origin) return callback(null, true);
+        
+        const allowedOrigins = [
+            'http://localhost:5173',
+            'http://127.0.0.1:5173',
+            // Get the IP address dynamically
+            origin
+        ];
+        
+        if(allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
-    exposedHeaders: ['Set-Cookie'],
+    allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'Access-Control-Allow-Credentials',
+        'Access-Control-Allow-Origin',
+        'Access-Control-Allow-Headers'
+    ]
 }));
+
+// Enable pre-flight for all routes
+app.options('*', cors());
 
 app.use(express.json());
 app.use(cookieParser());
@@ -36,6 +61,6 @@ app.use("/api/payment", require("./routes/paymentRoute"));
 app.use(globalErrorHandler);
 
 // Server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`☑️  POS Server is listening on port ${PORT}`);
 })

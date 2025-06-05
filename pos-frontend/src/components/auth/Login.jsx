@@ -28,13 +28,17 @@ const Login = () => {
       onSuccess: (res) => {
           const { data } = res;
           if (data.success) {
-              dispatch(setUser(data.data));
-              enqueueSnackbar(data.message, { variant: "success" });
+              const userData = data.data;
+              dispatch(setUser(userData));
+              enqueueSnackbar("Login successful!", { variant: "success" });
               navigate("/");
+          } else {
+              enqueueSnackbar(data.message || "Login failed", { variant: "error" });
           }
       },
       onError: (error) => {
-        const message = error.response?.data?.message || "Login failed";
+        console.error("Login Error:", error);
+        const message = error.response?.data?.message || "Login failed. Please check your credentials.";
         enqueueSnackbar(message, { variant: "error" });
       }
     })
@@ -75,9 +79,10 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-[#F6B100] text-[#f5f5f5] rounded-lg py-2 sm:py-2.5 mt-4 sm:mt-6 hover:bg-yellow-600 active:bg-yellow-700 transition-colors duration-200 text-sm sm:text-base font-medium"
+          disabled={loginMutation.isPending}
+          className="w-full bg-[#F6B100] text-[#f5f5f5] rounded-lg py-2 sm:py-2.5 mt-4 sm:mt-6 hover:bg-yellow-600 active:bg-yellow-700 transition-colors duration-200 text-sm sm:text-base font-medium disabled:opacity-70"
         >
-          Sign In
+          {loginMutation.isPending ? "Signing in..." : "Sign In"}
         </button>
       </form>
     );

@@ -33,44 +33,55 @@ const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
+        // Validate input
         if(!email || !password) {
-            const error = createHttpError(400, "All fields are required!");
+            const error = createHttpError(400, "Email and password are required!");
             return next(error);
         }
 
-        const isUserPresent = await User.findOne({email}).select('+password');
-        if(!isUserPresent){
-            const error = createHttpError(401, "Invalid Credentials");
+        // Find user and explicitly select password field
+        const user = await User.findOne({ email }).select('+password');
+        if(!user){
+            const error = createHttpError(401, "Invalid email or password");
             return next(error);
         }
 
-        const isMatch = await bcrypt.compare(password, isUserPresent.password);
+        // Compare password
+        const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){
-            const error = createHttpError(401, "Invalid Credentials");
+            const error = createHttpError(401, "Invalid email or password");
             return next(error);
         }
 
-        const accessToken = jwt.sign({_id: isUserPresent._id}, config.accessTokenSecret, {
-            expiresIn : '1d'
-        });
+        // Generate token
+        const accessToken = jwt.sign(
+            { _id: user._id },
+            config.accessTokenSecret,
+            { expiresIn: '1d' }
+        );
 
         // Remove password from response
-        isUserPresent.password = undefined;
+        const userResponse = user.toObject();
+        delete userResponse.password;
 
+        // Set cookie
         res.cookie('accessToken', accessToken, {
-            maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
+            maxAge: 24 * 60 * 60 * 1000, // 1 day
             httpOnly: true,
             secure: true,
             sameSite: 'none',
             path: '/'
         });
 
+        // Send response
         res.status(200).json({
-            success: true, 
-            message: "User login successfully!", 
-            data: isUserPresent
+            success: true,
+            message: "Login successful!",
+            data: userResponse
         });
+
     } catch (error) {
+        console.error("Login error:", error);
         next(error);
     }
 }
@@ -96,7 +107,7 @@ const logout = async (req, res, next) => {
             sameSite: 'none',
             path: '/'
         });
-        res.status(200).json({success: true, message: "User logout successfully!"});
+        res.status(200).json({success: true, message: "Logout successful!"});
     } catch (error) {
         next(error);
     }
