@@ -27,51 +27,60 @@ const Dashboard = () => {
 
   return (
     <div className="bg-[#1f1f1f] min-h-[calc(100vh-5rem)] pb-16 sm:pb-0">
-      <div className="container mx-auto flex flex-col space-y-4 py-4 sm:py-6 md:py-8 px-4">
+      <div className="container mx-auto flex flex-col space-y-6 py-6 px-4 sm:px-6 lg:px-8">
         {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full justify-start">
-          {buttons.map(({ label, icon, action }) => {
-            return (
-              <button
-                key={action}
-                onClick={() => handleOpenModal(action)}
-                className="flex-1 sm:flex-none bg-[#1a1a1a] hover:bg-[#262626] px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 rounded-lg text-[#f5f5f5] font-medium text-xs sm:text-sm flex items-center gap-2 justify-center transition-colors"
-              >
-                {icon}
-                <span className="hidden sm:inline">{label}</span>
-              </button>
-            );
-          })}
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-3">
+          {buttons.map(({ label, icon, action }) => (
+            <button
+              key={action}
+              onClick={() => handleOpenModal(action)}
+              className="flex items-center justify-center gap-2 bg-[#1a1a1a] hover:bg-[#262626] px-4 py-3 rounded-xl text-[#f5f5f5] font-medium text-sm transition-colors w-full sm:w-auto"
+            >
+              <span className="text-xl">{icon}</span>
+              <span className="hidden sm:inline">{label}</span>
+            </button>
+          ))}
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex items-center gap-2 sm:gap-3 w-full overflow-x-auto pb-2 scrollbar-hide">
-          {tabs.map((tab) => {
-            return (
-              <button
-                key={tab}
-                className={`
-                  flex-1 sm:flex-none px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 rounded-lg text-[#f5f5f5] font-medium text-xs sm:text-sm whitespace-nowrap transition-colors
-                  ${activeTab === tab ? "bg-[#262626]" : "bg-[#1a1a1a] hover:bg-[#262626]"}
-                `}
-                onClick={() => setActiveTab(tab)}
-              >
-                {tab}
-              </button>
-            );
-          })}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`
+                flex-none px-5 py-2.5 rounded-lg text-[#f5f5f5] font-medium 
+                text-sm whitespace-nowrap transition-colors
+                ${activeTab === tab 
+                  ? "bg-[#262626] shadow-lg" 
+                  : "bg-[#1a1a1a] hover:bg-[#262626]"
+                }
+              `}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
-      </div>
 
-      {/* Content Area */}
-      <div className="overflow-x-hidden overflow-y-auto">
-        {activeTab === "Metrics" && <Metrics />}
-        {activeTab === "Orders" && <RecentOrders />}
-        {activeTab === "Payments" && (
-          <div className="text-white p-4 sm:p-6 container mx-auto">
-            Payment Component Coming Soon
-          </div>
-        )}
+        {/* Content Area */}
+        <div className="overflow-x-hidden">
+          {activeTab === "Metrics" && (
+            <div className="animate-fadeIn">
+              <Metrics />
+            </div>
+          )}
+          {activeTab === "Orders" && (
+            <div className="animate-fadeIn">
+              <RecentOrders />
+            </div>
+          )}
+          {activeTab === "Payments" && (
+            <div className="animate-fadeIn text-[#f5f5f5] p-6 bg-[#1a1a1a] rounded-xl">
+              <h2 className="text-xl font-semibold mb-4">Payment Analytics</h2>
+              <p className="text-[#999]">Payment analytics coming soon...</p>
+            </div>
+          )}
+        </div>
       </div>
 
       {isTableModalOpen && <Modal setIsTableModalOpen={setIsTableModalOpen} />}
