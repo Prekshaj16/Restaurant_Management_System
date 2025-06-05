@@ -38,7 +38,7 @@ const login = async (req, res, next) => {
             return next(error);
         }
 
-        const isUserPresent = await User.findOne({email});
+        const isUserPresent = await User.findOne({email}).select('+password');
         if(!isUserPresent){
             const error = createHttpError(401, "Invalid Credentials");
             return next(error);
@@ -54,12 +54,16 @@ const login = async (req, res, next) => {
             expiresIn : '1d'
         });
 
+        // Remove password from response
+        isUserPresent.password = undefined;
+
         res.cookie('accessToken', accessToken, {
-            maxAge: 1000 * 60 * 60 * 24 * 30,
+            maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
             httpOnly: true,
+            secure: true,
             sameSite: 'none',
-            secure: true
-        })
+            path: '/'
+        });
 
         res.status(200).json({
             success: true, 
@@ -74,6 +78,10 @@ const login = async (req, res, next) => {
 const getUserData = async (req, res, next) => {
     try {
         const user = await User.findById(req.user._id);
+        if (!user) {
+            const error = createHttpError(404, "User not found");
+            return next(error);
+        }
         res.status(200).json({success: true, data: user});
     } catch (error) {
         next(error);
@@ -84,8 +92,9 @@ const logout = async (req, res, next) => {
     try {
         res.clearCookie('accessToken', {
             httpOnly: true,
+            secure: true,
             sameSite: 'none',
-            secure: true
+            path: '/'
         });
         res.status(200).json({success: true, message: "User logout successfully!"});
     } catch (error) {

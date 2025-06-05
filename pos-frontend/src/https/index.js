@@ -5,9 +5,22 @@ const api = axios.create({
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "Access-Control-Allow-Credentials": "true"
     }
 });
+
+// Add response interceptor to handle errors
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            // Handle unauthorized error
+            console.error("Authentication error:", error.response?.data?.message);
+        }
+        return Promise.reject(error);
+    }
+);
 
 // API Endpoints
 

@@ -11,17 +11,15 @@ connectDB();
 
 // Middlewares
 app.use(cors({
+    origin: true, // Allow all origins
     credentials: true,
-    origin: ['http://localhost:5173', 'https://restaurantfrontend-ten.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
+    exposedHeaders: ['Set-Cookie'],
 }));
 
 app.use(express.json());
 app.use(cookieParser());
-
-// Enable pre-flight requests for all routes
-app.options('*', cors());
 
 // Root Endpoint
 app.get("/", (req,res) => {
